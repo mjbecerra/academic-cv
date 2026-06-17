@@ -536,9 +536,9 @@ Powered by Hugo Blox Kit - https://github.com/HugoBlox/kit
 &lt;div class="p-6 space-y-4"&gt;
 &lt;div class="mb-4 overflow-hidden rounded-lg"&gt;
 &lt;img class="w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105"
-srcset="https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_f72c1a452bb0d2c4.webp 400w, https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_14b967f8dcd8fdbf.webp 600w, https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_cdf04663de998782.webp 800w, https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_bacc01c61b554a54.webp 800w"
+srcset="https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_16dd801da86fdd1a.webp 400w, https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_91d20702259dc7b.webp 600w, https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_fb6518f2fc84313a.webp 800w, https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_c08883eebbab0a9.webp 800w"
 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-src="https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_f72c1a452bb0d2c4.webp"
+src="https://mjbecerra.github.io/photo-1514888286974-6c03e2ca1dba_18145305924448453957_hu_16dd801da86fdd1a.webp"
 width="400"
 height="300"
 loading="lazy"
@@ -615,7 +615,7 @@ Powered by Hugo Blox Kit - https://github.com/HugoBlox/kit
 format for interactive data visualizations. With Plotly, you can design almost any kind of visualization you can imagine!&lt;/p&gt;
 &lt;p&gt;Save your Plotly JSON in your page folder, for example &lt;code&gt;line-chart.json&lt;/code&gt;, and then add the &lt;code&gt;{{&amp;lt; chart data=&amp;quot;line-chart&amp;quot; &amp;gt;}}&lt;/code&gt; shortcode where you would like the chart to appear.&lt;/p&gt;
 &lt;p&gt;Demo:&lt;/p&gt;
-&lt;div id="chart-896542137" class="chart"&gt;&lt;/div&gt;
+&lt;div id="chart-795426183" class="chart"&gt;&lt;/div&gt;
 &lt;script&gt;
 (function() {
 async function fetchChartJSON() {
@@ -631,7 +631,7 @@ return;
 clearInterval( a );
 fetchChartJSON().then(chart =&gt; {
 console.debug('Plotting chart...')
-window.Plotly.newPlot('chart-896542137', chart.data, chart.layout, {responsive: true});
+window.Plotly.newPlot('chart-795426183', chart.data, chart.layout, {responsive: true});
 });
 }, 500 );
 })();
