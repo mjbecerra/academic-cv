@@ -35,14 +35,14 @@ sections:
         shape: circle # Options: circle (default), square, rounded
   - block: markdown
     content:
-      title: '📚 My Research'
+      title: 'My Research'
       subtitle: ''
       text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        My work sits at the intersection of critical geography, indigenous studies, and environmental science. I use GIS, participatory cartography, and mixed methods to investigate how indigenous peoples navigate climate change, territorial rights, and socio-environmental pressures in the Amazon and coastal Latin America.
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
+        I am particularly interested in the spatial dimensions of climate change perception, the governance of indigenous territories, and the role of environmental education in building community resilience.
 
-        Please reach out to collaborate 😃
+        I welcome collaboration with researchers working on Amazonian sustainability, indigenous cartography, and critical geography. Feel free to reach out.
     design:
       columns: '1'
   - block: collection
