@@ -148,6 +148,22 @@ hugoblox.yaml        # Hugo version pin, deploy host
 
 ---
 
+## Automated ORCID sync
+
+A GitHub Actions workflow (`.github/workflows/orcid-sync.yml`) runs on the **1st of every month** and checks the ORCID public API for publications not yet in `content/publications/`.
+
+If new DOIs are found, the workflow:
+1. Generates a Hugo frontmatter stub (`index.md`) for each missing publication.
+2. Opens a **pull request** for human review before the content goes live.
+
+The stub includes title, journal, date, DOI, and a `https://doi.org/…` link. Before merging the PR, verify `open_access`, `peer_reviewed`, `featured`, and `tags`.
+
+To trigger the sync manually: **Actions → Sync Publications from ORCID → Run workflow**.
+
+Script: [`.github/scripts/check_orcid.py`](.github/scripts/check_orcid.py)
+
+---
+
 ## License
 
 Site content © Melgris José Becerra Ruiz. All rights reserved.

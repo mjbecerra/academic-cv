@@ -1,0 +1,93 @@
+# Check ORCID every 30 days for new publications and open a PR if any are found.
+name: Sync Publications from ORCID
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  schedule:
+    # Runs on the 1st of every month at 08:00 UTC (~30 days)
+    - cron: "0 8 1 * *"
+  workflow_dispatch:   # manual trigger from Actions tab
+
+concurrency:
+  group: orcid-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    if: github.repository_owner != 'HugoBlox'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Check ORCID for new publications
+        id: orcid
+        run: |
+          result=$(python .github/scripts/check_orcid.py)
+          echo "$result"
+          new_count=$(echo "$result" | python3 -c "import json,sys; print(json.loads(sys.stdin.read())['new_count'])")
+          echo "new_count=${new_count}" >> "$GITHUB_OUTPUT"
+
+          # Build a human-readable list for the PR body
+          summary=$(echo "$result" | python3 -c "
+          import json, sys
+          d = json.loads(sys.stdin.read())
+          lines = []
+          for w in d.get('new_works', []):
+              doi_str = f' — DOI: {w[\"doi\"]}' if w['doi'] else ''
+              year = f' ({w[\"year\"]})' if w['year'] else ''
+              journal = f' *{w[\"journal\"]}*' if w['journal'] else ''
+              lines.append(f'- **{w[\"title\"]}**{year}{journal}{doi_str}')
+          print('\n'.join(lines))
+          ")
+          # Store multi-line value safely
+          {
+            echo "summary<<EOF"
+            echo "$summary"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        if: steps.orcid.outputs.new_count != '0'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "feat(publications): add ${{ steps.orcid.outputs.new_count }} new publication(s) from ORCID"
+          title: "ORCID Sync — ${{ steps.orcid.outputs.new_count }} new publication(s) detected"
+          body: |
+            ## ORCID Sync — Automated Publication Check
+
+            The monthly ORCID sync found **${{ steps.orcid.outputs.new_count }}** publication(s) not yet in the repository.
+
+            ### New publications
+
+            ${{ steps.orcid.outputs.summary }}
+
+            ---
+            These are auto-generated stubs. Before merging, please review each `index.md` and:
+            - Confirm `open_access`, `peer_reviewed`, and `featured` values
+            - Add or clean up `tags`
+            - Fill in `abstract` if desired
+
+            Generated from ORCID profile [0000-0001-6675-7370](https://orcid.org/0000-0001-6675-7370)
+          base: main
+          labels: automated-pr, publications, orcid-sync
+          branch: orcid-sync-${{ github.run_id }}
+          delete-branch: true
+          draft: false
+
+      - name: Report — no new publications
+        if: steps.orcid.outputs.new_count == '0'
+        run: echo "✅ All ORCID publications are already in the repository. Nothing to add."
