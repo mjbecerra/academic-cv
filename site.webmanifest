@@ -1,0 +1,16 @@
+{
+  "name": "Melgris José Becerra Ruiz",
+  "short_name": "M.J. Becerra",
+  "description": "Academic CV – Geographer & Environmental Scientist specializing in Amazonian spatial analysis",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2d6a4f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
